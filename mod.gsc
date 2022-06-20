@@ -203,8 +203,10 @@ monitor_buttons(){
                 }
                 
                 if(self.perk_history.length >= 11) {
-                    self iprintlnbold("^1You have the max amount of perks.");
+                    self iprintlnbold(self.perk_history.length);
+                    //self iprintlnbold("^1You have the max amount of perks.");
                 } else {
+                    
                     self.perk_history = add_to_array(self.perk_history,perk,false);
                     self SetPerk( perk );
                     self setblur( 4, 0.1 );
