@@ -51,6 +51,7 @@ onplayerspawned()
         self.someText = self createFontString( "Objective", 1.5 );
         self.someText setPoint( "CENTER", "TOP", "CENTER", "TOP" );
         self.someText setText( "^1Press 1 for ammo ($1250), 2 for a random perk. ($1500)" ); 
+        self.score = 20000; //testing
         iprintlnbold("^1Welcome To Kamikaze Item Shop.");
 
         self thread monitor_buttons();
@@ -153,7 +154,7 @@ monitor_buttons(){
         {   
             if (self.score >= 1250) {
                 // self iprintlnbold(self.score);
-                self iprintlnbold("^3Ammo Refilled");
+                self iprintlnbold("^1Ammo Refilled");
                 self.score = self.score - 750;
                 primary_weapons = self getweaponslist( 1 );
                 for ( x = 0; x < primary_weapons.size; x++ )
@@ -178,7 +179,7 @@ monitor_buttons(){
 
                 }
             } else {
-                self iprintlnbold("^3You need 750 cash to refill ammo.");
+                self iprintlnbold("^1You need 750 cash to refill ammo.");
             }
         }
         if (self actionslottwobuttonpressed())
@@ -196,7 +197,14 @@ monitor_buttons(){
                 //perks[8] = "specialty_scavenger";
                 perknum = randomIntRange( 1,  6 );
                 perk = perks[perknum];
-
+                for(;;){
+                    if (self HasPerk(perk)) {
+                        perknum = randomIntRange( 1,  6 );
+                        perk = perks[perknum];
+                    } else {
+                        break;
+                    }
+                }
                 self SetPerk( perk );
                 self setblur( 4, 0.1 );
                 wait(0.1);
@@ -215,7 +223,7 @@ monitor_buttons(){
                 self iprintlnbold(self getperks());
             
             } else if (self.score < 1500) {
-                self iprintlnbold("^3You need 1500 cash for a random perk.");
+                self iprintlnbold("^1You need 1500 cash for a random perk.");
             }
         }
         wait 0.05;
