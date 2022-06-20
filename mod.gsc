@@ -195,30 +195,34 @@ monitor_buttons(){
                 perks[6] = "specialty_additionalprimaryweapon";
                 //perks[7] = "specialty_deadshot";
                 //perks[8] = "specialty_scavenger";
-
                 perknum = randomIntRange( 1,  6 );
                 perk = perks[perknum];
                 if(!isDefined(self.perk_history))
                 {
                     self.perk_history = [];
                 }
-                self.perk_history = add_to_array(self.perk_history,perk,false);
-                self SetPerk( perk );
-                self setblur( 4, 0.1 );
-                wait(0.1);
-                self setblur(0, 0.1);
+                
+                if(self.perk_history.length >= 11) {
+                    self iprintlnbold("^1You have the max amount of perks.");
+                } else {
+                    self.perk_history = add_to_array(self.perk_history,perk,false);
+                    self SetPerk( perk );
+                    self setblur( 4, 0.1 );
+                    wait(0.1);
+                    self setblur(0, 0.1);
 
-                self.stats["perks"]++;
-                self perk_hud_create(perk, 0, 0);
-                if ( !isDefined( self.perks_active ) )
-                {
-                    self.perks_active = [];
+                    self.stats["perks"]++;
+                    self perk_hud_create(perk, 0, 0);
+                    if ( !isDefined( self.perks_active ) )
+                    {
+                        self.perks_active = [];
+                    }
+                    self.perks_active[ self.perks_active.size ] = perk;
+                    self notify("perk_acquired");	
+                    self thread perk_think( perk );
+                    self.score = self.score - 1500;
+                    self iprintlnbold(self getperks());
                 }
-                self.perks_active[ self.perks_active.size ] = perk;
-                self notify("perk_acquired");	
-                self thread perk_think( perk );
-                self.score = self.score - 1500;
-                self iprintlnbold(self getperks());
             } else if (self.score < 1500) {
                 self iprintlnbold("^3You need 1500 cash for a random perk.");
             }
