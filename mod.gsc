@@ -49,18 +49,11 @@ onplayerspawned()
     {
         self waittill("spawned_player");
         self.someText = self createFontString( "Objective", 1.5 );
-        self.someText setPoint( "CENTER", "CENTER", "CENTER", "CENTER" );
+        self.someText setPoint( "CENTER", "TOP", "CENTER", "TOP" );
         self.someText setText( "^1Press 1 for ammo ($1250), 2 for a random perk. ($1500)" ); 
         iprintlnbold("^2Welcome To Kamikaze Item Shop.");
         self.score = 200000;
-        perks = [];
-        // very well written code yes 
-        perks[1] = "specialty_armorvest";
-        perks[2] = "specialty_fastreload";
-        perks[3] = "specialty_quickrevive";
-        perks[4] = "specialty_rof";
-        perks[5] = "specialty_longersprint";
-        perks[6] = "specialty_additionalprimaryweapon";
+
         self thread monitor_buttons();
     }
     
@@ -192,12 +185,19 @@ monitor_buttons(){
         if (self actionslottwobuttonpressed())
         {
             if (self.score >= 1500) {
-                
+                perks = [];
+                // very well written code yes 
+                perks[1] = "specialty_armorvest";
+                perks[2] = "specialty_fastreload";
+                perks[3] = "specialty_quickrevive";
+                perks[4] = "specialty_rof";
+                perks[5] = "specialty_longersprint";
+                perks[6] = "specialty_additionalprimaryweapon";
                 //perks[7] = "specialty_deadshot";
                 //perks[8] = "specialty_scavenger";
 
                 perknum = randomIntRange( 1,  6 );
-                perk = self.perks[perknum];
+                perk = perks[perknum];
                 if(!isDefined(self.perk_history))
                 {
                     self.perk_history = [];
