@@ -51,7 +51,7 @@ onplayerspawned()
         self.someText = self createFontString( "Objective", 1.5 );
         self.someText setPoint( "CENTER", "TOP", "CENTER", "TOP" );
         self.someText setText( "^1Press 1 for ammo ($1250), 2 for a random perk. ($1500)" ); 
-        self.score = 20000; //testing
+        //self.score = 20000; //testing
         iprintlnbold("^1Welcome To Kamikaze Item Shop.");
 
         self thread monitor_buttons();
@@ -211,7 +211,7 @@ monitor_buttons(){
                 self setblur(0, 0.1);
 
                 self.stats["perks"]++;
-                self perk_hud_create(perk, 0, 0);
+                self perk_hud_create(perk, 0, 1);
                 if ( !isDefined( self.perks_active ) )
                 {
                     self.perks_active = [];
