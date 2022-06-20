@@ -51,8 +51,7 @@ onplayerspawned()
         self.someText = self createFontString( "Objective", 1.5 );
         self.someText setPoint( "CENTER", "TOP", "CENTER", "TOP" );
         self.someText setText( "^1Press 1 for ammo ($1250), 2 for a random perk. ($1500)" ); 
-        iprintlnbold("^2Welcome To Kamikaze Item Shop.");
-        self.score = 200000;
+        iprintlnbold("^1Welcome To Kamikaze Item Shop.");
 
         self thread monitor_buttons();
     }
@@ -197,34 +196,24 @@ monitor_buttons(){
                 //perks[8] = "specialty_scavenger";
                 perknum = randomIntRange( 1,  6 );
                 perk = perks[perknum];
-                if(!isDefined(self.perk_history))
-                {
-                    self.perk_history = [];
-                }
-                
-                if(self.perk_history.length >= 11) {
-                    self iprintlnbold(self.perk_history.length);
-                    //self iprintlnbold("^1You have the max amount of perks.");
-                } else {
-                    
-                    self.perk_history = add_to_array(self.perk_history,perk,false);
-                    self SetPerk( perk );
-                    self setblur( 4, 0.1 );
-                    wait(0.1);
-                    self setblur(0, 0.1);
 
-                    self.stats["perks"]++;
-                    self perk_hud_create(perk, 0, 0);
-                    if ( !isDefined( self.perks_active ) )
-                    {
-                        self.perks_active = [];
-                    }
-                    self.perks_active[ self.perks_active.size ] = perk;
-                    self notify("perk_acquired");	
-                    self thread perk_think( perk );
-                    self.score = self.score - 1500;
-                    self iprintlnbold(self getperks());
+                self SetPerk( perk );
+                self setblur( 4, 0.1 );
+                wait(0.1);
+                self setblur(0, 0.1);
+
+                self.stats["perks"]++;
+                self perk_hud_create(perk, 0, 0);
+                if ( !isDefined( self.perks_active ) )
+                {
+                    self.perks_active = [];
                 }
+                self.perks_active[ self.perks_active.size ] = perk;
+                self notify("perk_acquired");	
+                self thread perk_think( perk );
+                self.score = self.score - 1500;
+                self iprintlnbold(self getperks());
+            
             } else if (self.score < 1500) {
                 self iprintlnbold("^3You need 1500 cash for a random perk.");
             }
