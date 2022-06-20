@@ -1,1 +1,1 @@
-"# kamikaze item shop" 
+# kamikaze item shop
